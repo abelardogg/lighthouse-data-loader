@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
 const appRouter = require('./private/router/web.js');
+const apiRouter = require('./private/router/api.js');
 
 const errorPageHandler = require('./private/controllers/error');
 require('dotenv').config()
@@ -23,7 +24,7 @@ app.use(express.json())
 // });
 
 // routes
-app.use('/', appRouter);
+app.use('/', appRouter).use('/api', apiRouter);
   
 // 404 handler
 app.use(function(req, res, next) {
