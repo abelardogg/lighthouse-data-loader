@@ -66,7 +66,7 @@ router.post('/save/performance/register', async (req, res) => {
     }
 
     try {
-        fs.writeFileSync(`data/${filename}`, JSON.stringify(data));
+        fs.writeFileSync(`db/${filename}`, JSON.stringify(data));
         // try {
         //     const data = fs.readFileSync(`data/${filename}`, 'utf8')
         //     debugger
