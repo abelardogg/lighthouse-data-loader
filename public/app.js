@@ -1,6 +1,7 @@
 (function () {
     const requestResponseBox = document.getElementById('request-response');
     const requestPerformanceTestButton = document.getElementById('request-performance-test');
+    const downloadHandlerEl = document.getElementById('download-hanlder')
 
     document.getElementById('register-data').addEventListener('submit', function (e) {
         e.preventDefault();
@@ -40,6 +41,21 @@
         }
         alert('no data')
     });
+
+    document.getElementById('download').addEventListener('click', function (e) {
+        e.preventDefault();
+        if (!!window.performanceData) {
+            let data = "data:application/octet-stream," + encodeURIComponent(JSON.stringify(window.performanceData));
+            // newWindow = window.open(uriContent, window.performanceData.msDate);
+            downloadHandlerEl.setAttribute("href", data);
+            downloadHandlerEl.setAttribute("download", window.performanceData.msDate);
+            downloadHandlerEl.click();
+            
+            return;
+        }
+        alert('no data')
+    });
+
 
     function saveRegister(name, data) {
         const url = '/api/save/performance/register'

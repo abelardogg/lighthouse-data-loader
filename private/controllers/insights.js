@@ -52,7 +52,7 @@ router.get('/performance', async (req, res) => {
 
       } catch (error) {
         console.error(error);
-        res.json({error: 'err!!!'})
+        res.json({error: error})
 
       }
 });
