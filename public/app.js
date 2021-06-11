@@ -48,7 +48,7 @@
             let data = "data:application/octet-stream," + encodeURIComponent(JSON.stringify(window.performanceData));
             // newWindow = window.open(uriContent, window.performanceData.msDate);
             downloadHandlerEl.setAttribute("href", data);
-            downloadHandlerEl.setAttribute("download", window.performanceData.msDate);
+            downloadHandlerEl.setAttribute("download", `${window.performanceData.msDate}.json`);
             downloadHandlerEl.click();
             
             return;
