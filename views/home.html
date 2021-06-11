@@ -1,11 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>lh loader</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    hello world
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3>Resquest performance data</h3>
+            </div>
+            <div class="card-body">
+                <form id="register-data">
+                    <p>Set the url</p>
+                    <div class="d-flex">
+                        <label for="performance-test-url">URL: </label>
+                        <input type="text" id="performance-test-url" style="width: 100%;" value="https://1aauto.com">
+                    </div>
+                    <br>
+                    <div class="d-flex">
+                        <label for="performance-test-device">Device: </label>
+                        <select id="performance-test-device">
+                            <option value="desktop">desktop</option>
+                            <option value="mobile">mobile</option>
+                        </select>
+                    </div>
+                    <br>
+                    <br>
+                    <button id="request-performance-test" type="submit" class="btn">request</button>
+                    <br>
+                    <br>
+                    <textarea id="request-response" readonly></textarea>
+                    
+                </form>
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+        
+        <br>
+        <form id="save-register">
+            <button type="submit">save</button>
+        </form>
+    </div>
+
 </body>
+
+<script src="app.js"></script>
+
 </html>

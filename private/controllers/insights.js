@@ -1,13 +1,14 @@
 const express = require('express');
 var router = express.Router();
 const axios = require('axios');
+const fs = require('fs');
 
 router.use(function (req, res, next) {
     // .. some logic here .. like any other middleware
     next()
 });
 
-router.get('/', async (req, res) => {
+router.get('/performance', async (req, res) => {
     const strategy = req.query.strategy;
     const url = req.query.url
 
@@ -23,6 +24,9 @@ router.get('/', async (req, res) => {
         const generalScore = response.data.lighthouseResult.categories.performance.score;
         const lighthouseData = response.data.lighthouseResult.audits;
         const data = {
+            msDate: new Date(response.data.analysisUTCTimestamp).getTime(),
+            date: new Date(response.data.analysisUTCTimestamp).toLocaleDateString(),
+            time: new Date(response.data.analysisUTCTimestamp).toLocaleTimeString(),
             url: url,
             device: strategy,
             score: generalScore,
@@ -41,11 +45,7 @@ router.get('/', async (req, res) => {
                 'bootup-time': lighthouseData['bootup-time'],
                 'network-rtt': lighthouseData['network-rtt'],
                 'speed-index': lighthouseData['speed-index']
-            },
-            date: new Date(response.data.analysisUTCTimestamp).toLocaleDateString(),
-            time: new Date(response.data.analysisUTCTimestamp).toLocaleTimeString()
-
-            
+            }
         }
         res.json(data)
         return
@@ -55,6 +55,35 @@ router.get('/', async (req, res) => {
         res.json({error: 'err!!!'})
 
       }
+});
+
+router.post('/save/performance/register', async (req, res) => {
+    const filename = req.body.filename;
+    const data = req.body.data;
+
+    if(!filename){
+        res.json({error: 'filename param is required'})
+    }
+
+    try {
+        fs.writeFileSync(`data/${filename}`, JSON.stringify(data));
+        // try {
+        //     const data = fs.readFileSync(`data/${filename}`, 'utf8')
+        //     debugger
+        //     content = data;
+        //     res.json({f: content})
+
+        //   } catch (err) {
+        //     console.error(err)
+        //   }
+
+        res.json({message: `${filename} saved`})
+
+    } catch (error) {
+        res.json({error: 'error while creating file'})
+        
+    }
+
 });
 
 module.exports = router;
